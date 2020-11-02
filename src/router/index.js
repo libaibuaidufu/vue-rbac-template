@@ -36,13 +36,11 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
@@ -54,7 +52,6 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-
   {
     path: '/example',
     component: Layout,
@@ -76,7 +73,6 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: '/form',
     component: Layout,
@@ -89,7 +85,6 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: '/nested',
     component: Layout,
@@ -148,7 +143,6 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: 'external-link',
     component: Layout,
@@ -158,12 +152,139 @@ export const constantRoutes = [
         meta: { title: 'External Link', icon: 'link' }
       }
     ]
-  },
+  }
 
+]
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [
+  {
+    path: '/user',
+    component: Layout,
+    meta: {
+      title: 'Nested Routes',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'User',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户管理', icon: 'form' }
+      },
+      {
+        path: 'user',
+        name: 'User2',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户管理2', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/auth',
+    component: Layout,
+    name: '权限管理',
+    meta: {
+      title: '权限管理',
+      icon: 'nested',
+      roles: ['admin', 'editor']
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'User',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户管理', icon: 'form', roles: ['admin', 'editor'] }
+      },
+      {
+        path: 'group',
+        name: 'Group',
+        component: () => import('@/views/group/index'),
+        meta: { title: '用户组管理', icon: 'form', roles: ['admin', 'editor'] }
+      },
+      {
+        path: 'resources',
+        name: 'Resources',
+        component: () => import('@/views/resources/index'),
+        meta: { title: '资源管理', icon: 'form', roles: ['admin', 'editor'] }
+      }
+    ]
+  },
+  {
+    path: '/auth_three',
+    component: Layout,
+    name: '权限管理3',
+    meta: {
+      title: '权限管理3',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'User',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户管理', icon: 'form' }
+      },
+      {
+        path: 'rolemenu',
+        name: 'Rolemenu',
+        component: () => import('@/views/rolemenu/index'),
+        meta: { title: '角色管理', icon: 'form' }
+      },
+      {
+        path: 'resources',
+        name: 'Resources',
+        component: () => import('@/views/resources/index'),
+        meta: { title: '资源管理', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/auth_two',
+    component: Layout,
+    name: '权限管理2',
+    meta: {
+      title: '权限管理2',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'user',
+        name: 'User',
+        component: () => import('@/views/user/index'),
+        meta: { title: '用户管理', icon: 'form' }
+      },
+      {
+        path: 'role',
+        name: 'Role',
+        component: () => import('@/views/role/index'),
+        meta: { title: '角色管理', icon: 'form' }
+      },
+      {
+        path: 'menu',
+        name: 'Menu',
+        component: () => import('@/views/menu/index'),
+        meta: { title: '菜单管理', icon: 'form' }
+      },
+      {
+        path: 'pemission',
+        name: 'Pemission',
+        component: () => import('@/views/pemission/index'),
+        meta: { title: '权限管理', icon: 'form' }
+      },
+      {
+        path: 'operation',
+        name: 'Operation',
+        component: () => import('@/views/operation/index'),
+        meta: { title: '操作管理', icon: 'form' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
-
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
